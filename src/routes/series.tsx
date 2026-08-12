@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SiteHeader } from "@/components/SiteHeader";
+import { Footer } from "@/components/Footer";
 import { matches } from "@/data/matches";
 
 export const Route = createFileRoute("/series")({
@@ -51,6 +52,7 @@ function SeriesPage() {
           ))}
         </ul>
       </main>
+      <Footer />
     </div>
   );
 }

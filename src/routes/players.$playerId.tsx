@@ -1,5 +1,6 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { SiteHeader } from "@/components/SiteHeader";
+import { Footer } from "@/components/Footer";
 import { getPlayer } from "@/data/players";
 
 export const Route = createFileRoute("/players/$playerId")({
@@ -108,6 +109,7 @@ function PlayerPage() {
           </table>
         </div>
       </main>
+      <Footer />
     </div>
   );
 }

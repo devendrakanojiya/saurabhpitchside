@@ -1,6 +1,7 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useState } from "react";
 import { SiteHeader } from "@/components/SiteHeader";
+import { Footer } from "@/components/Footer";
 import { getMatch } from "@/data/matches";
 import { fetchLiveMatches } from "@/lib/cricket.functions";
 
@@ -88,6 +89,7 @@ function MatchPage() {
             </a>
           </section>
         </main>
+        <Footer />
       </div>
     );
   }
@@ -242,6 +244,7 @@ function MatchPage() {
           </ul>
         )}
       </main>
+      <Footer />
     </div>
   );
 }

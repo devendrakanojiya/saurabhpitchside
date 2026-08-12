@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 import { SiteHeader } from "@/components/SiteHeader";
+import { Footer } from "@/components/Footer";
 import { fetchLiveMatches, fetchNews } from "@/lib/cricket.functions";
 import type { LiveMatch } from "@/lib/cricket-parse";
 
@@ -152,6 +153,7 @@ function Index() {
           </div>
         </section>
       </main>
+      <Footer />
     </div>
   );
 }
