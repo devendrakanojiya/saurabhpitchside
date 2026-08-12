@@ -92,6 +92,7 @@ function NewsPage() {
           ))}
         </ul>
       </main>
+      <Footer />
     </div>
   );
 }

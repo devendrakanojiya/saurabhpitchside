@@ -99,6 +99,7 @@ function StoryPage() {
           </ul>
         </section>
       </main>
+      <Footer />
     </div>
   );
 }

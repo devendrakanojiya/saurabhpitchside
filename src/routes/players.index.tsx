@@ -57,6 +57,7 @@ function PlayersPage() {
           ))}
         </ul>
       </main>
+      <Footer />
     </div>
   );
 }

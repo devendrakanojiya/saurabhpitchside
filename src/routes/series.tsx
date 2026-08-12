@@ -52,6 +52,7 @@ function SeriesPage() {
           ))}
         </ul>
       </main>
+      <Footer />
     </div>
   );
 }

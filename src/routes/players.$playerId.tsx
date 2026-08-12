@@ -109,6 +109,7 @@ function PlayerPage() {
           </table>
         </div>
       </main>
+      <Footer />
     </div>
   );
 }

@@ -89,6 +89,7 @@ function MatchPage() {
             </a>
           </section>
         </main>
+        <Footer />
       </div>
     );
   }
