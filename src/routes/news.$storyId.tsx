@@ -1,5 +1,6 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { SiteHeader } from "@/components/SiteHeader";
+import { Footer } from "@/components/Footer";
 import { fetchNews } from "@/lib/cricket.functions";
 
 export const Route = createFileRoute("/news/$storyId")({

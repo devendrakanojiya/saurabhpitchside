@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteHeader } from "@/components/SiteHeader";
+import { Footer } from "@/components/Footer";
 import { players } from "@/data/players";
 
 export const Route = createFileRoute("/players/")({

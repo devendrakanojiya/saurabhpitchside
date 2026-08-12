@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 import { SiteHeader } from "@/components/SiteHeader";
+import { Footer } from "@/components/Footer";
 import { fetchNews } from "@/lib/cricket.functions";
 
 const newsQuery = queryOptions({

@@ -1,6 +1,7 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useState } from "react";
 import { SiteHeader } from "@/components/SiteHeader";
+import { Footer } from "@/components/Footer";
 import { getMatch } from "@/data/matches";
 import { fetchLiveMatches } from "@/lib/cricket.functions";
 
