@@ -2,20 +2,29 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useState } from "react";
 import { SiteHeader } from "@/components/SiteHeader";
 import { getMatch } from "@/data/matches";
+import { fetchLiveMatches } from "@/lib/cricket.functions";
 
 export const Route = createFileRoute("/match/$matchId")({
-  loader: ({ params }) => {
-    const match = getMatch(params.matchId);
-    if (!match) throw notFound();
-    return { match };
+  loader: async ({ params }) => {
+    const demo = getMatch(params.matchId);
+    if (demo) return { demo, live: null };
+    const live = (await fetchLiveMatches()).find((m) => m.id === params.matchId) ?? null;
+    if (!live) throw notFound();
+    return { demo: null, live };
   },
   head: ({ loaderData }) => {
     if (!loaderData) {
-      return { meta: [{ title: "Match unavailable — Pitchside" }, { name: "robots", content: "noindex" }] };
+      return {
+        meta: [{ title: "Match unavailable | Pitchside" }, { name: "robots", content: "noindex" }],
+      };
     }
-    const { match } = loaderData;
-    const title = `${match.teamA.team} vs ${match.teamB.team} — ${match.series} | Pitchside`;
-    const description = `${match.note}. Live score, scorecard and commentary from ${match.venue}.`;
+    const { demo, live } = loaderData;
+    const title = demo
+      ? `${demo.teamA.team} vs ${demo.teamB.team} — ${demo.series} | Pitchside`
+      : `${live!.teamA.name} vs ${live!.teamB.name} — Live Score | Pitchside`;
+    const description = demo
+      ? `${demo.note}. Live score, scorecard and commentary from ${demo.venue}.`
+      : `Live score: ${live!.title}. Follow ball-by-ball progress on Pitchside.`;
     return {
       meta: [
         { title },
@@ -26,11 +35,64 @@ export const Route = createFileRoute("/match/$matchId")({
     };
   },
   component: MatchPage,
+  errorComponent: ({ error }) => (
+    <p role="alert" className="p-8 text-center text-sm text-muted-foreground">{error.message}</p>
+  ),
+  notFoundComponent: () => (
+    <div className="p-10 text-center">
+      <p className="text-sm text-muted-foreground">This match is no longer live.</p>
+      <Link to="/" className="mt-3 inline-block text-sm font-semibold text-primary">
+        Back to scores
+      </Link>
+    </div>
+  ),
 });
 
 function MatchPage() {
-  const { match } = Route.useLoaderData();
+  const { demo, live } = Route.useLoaderData();
   const [tab, setTab] = useState<"scorecard" | "commentary">("scorecard");
+
+  if (live) {
+    return (
+      <div className="min-h-screen bg-background">
+        <SiteHeader />
+        <main className="mx-auto max-w-3xl px-4 py-8">
+          <Link to="/" className="text-xs font-medium text-muted-foreground hover:text-foreground">
+            ← All matches
+          </Link>
+          <section className="mt-4 rounded-xl border border-border bg-card p-5">
+            <span className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wide text-destructive">
+              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-destructive" />
+              Live
+            </span>
+            <h1 className="mt-3 text-lg font-bold tracking-tight text-foreground">
+              {live.teamA.name} vs {live.teamB.name}
+            </h1>
+            <div className="mt-5 grid gap-3 sm:grid-cols-2">
+              {[live.teamA, live.teamB].map((t) => (
+                <div key={t.name} className="rounded-lg bg-secondary/60 p-3">
+                  <p className="text-xs font-semibold text-muted-foreground">{t.name}</p>
+                  <p className="mt-1 font-mono text-xl font-bold tabular-nums text-foreground">
+                    {t.score || "yet to bat"}
+                  </p>
+                </div>
+              ))}
+            </div>
+            <a
+              href={live.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-5 inline-flex rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground hover:opacity-90"
+            >
+              Full scorecard
+            </a>
+          </section>
+        </main>
+      </div>
+    );
+  }
+
+  const match = demo!;
 
   return (
     <div className="min-h-screen bg-background">
