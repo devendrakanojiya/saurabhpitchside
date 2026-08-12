@@ -113,8 +113,7 @@ export const players: Player[] = [
     stats: [
       { format: "Test", matches: 5, runs: 279, average: 34.9, strikeRate: 89.4, wickets: 34 },
       { format: "ODI", matches: 109, runs: 1349, average: 18.0, strikeRate: 105.2, wickets: 197 },
-      { format: "T20I", matches: 94, runs: 528, average: 13.5, strikeRate: 141.9, wickets: badgeless(),
-      },
+      { format: "T20I", matches: 94, runs: 528, average: 13.5, strikeRate: 141.9, wickets: 161 },
     ],
   },
   {
@@ -133,9 +132,5 @@ export const players: Player[] = [
     ],
   },
 ];
-
-function badgeless() {
-  return 161;
-}
 
 export const getPlayer = (id: string) => players.find((p) => p.id === id);
