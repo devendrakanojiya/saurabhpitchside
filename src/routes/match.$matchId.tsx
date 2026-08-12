@@ -244,6 +244,7 @@ function MatchPage() {
           </ul>
         )}
       </main>
+      <Footer />
     </div>
   );
 }
