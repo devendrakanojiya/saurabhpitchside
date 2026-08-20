@@ -8,6 +8,6 @@ export default defineConfig({
     base: "/saurabhcricketx/", // Repository base path
   },
   nitro: {
-    preset: "static", // Forces Nitro to generate static HTML/JS files in dist/public
+    preset: "static", // Forces Nitro to produce a static site export
   },
 });
