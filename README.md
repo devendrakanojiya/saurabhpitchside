@@ -4,7 +4,7 @@ A Webapp similar to CricBuzz
 
 This project was built with [Lovable](https://lovable.dev).
 
-**Live app**: https://saurabhpitchside.lovable.app
+**Live app**: https://saurabhcricketx.lovable.app
 
 ## Build with Lovable
 
