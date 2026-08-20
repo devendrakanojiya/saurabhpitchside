@@ -138,9 +138,11 @@
     border-color: var(--color-border);
   }
 
-  #lovable-badge {
+ #lovable-badge,
+ #lovable-badge-cta {
     display: none !important;
-  }
+    visibility: hidden !important;
+}
 
   body {
     background-color: var(--color-background);
