@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as SeriesRouteImport } from './routes/series'
+import { Route as StatsRouteImport } from './routes/stats'
 import { Route as MatchMatchIdRouteImport } from './routes/match.$matchId'
 import { Route as NewsStoryIdRouteImport } from './routes/news.$storyId'
 import { Route as PlayersIndexRouteImport } from './routes/players.index'
@@ -36,6 +37,11 @@ const PrivacyRoute = PrivacyRouteImport.update({
 const SeriesRoute = SeriesRouteImport.update({
   id: '/series',
   path: '/series',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StatsRoute = StatsRouteImport.update({
+  id: '/stats',
+  path: '/stats',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MatchMatchIdRoute = MatchMatchIdRouteImport.update({
@@ -64,6 +70,7 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/privacy': typeof PrivacyRoute
   '/series': typeof SeriesRoute
+  '/stats': typeof StatsRoute
   '/match/$matchId': typeof MatchMatchIdRoute
   '/news/$storyId': typeof NewsStoryIdRoute
   '/players/$playerId': typeof PlayersPlayerIdRoute
@@ -74,6 +81,7 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/privacy': typeof PrivacyRoute
   '/series': typeof SeriesRoute
+  '/stats': typeof StatsRoute
   '/match/$matchId': typeof MatchMatchIdRoute
   '/news/$storyId': typeof NewsStoryIdRoute
   '/players/$playerId': typeof PlayersPlayerIdRoute
@@ -85,6 +93,7 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/privacy': typeof PrivacyRoute
   '/series': typeof SeriesRoute
+  '/stats': typeof StatsRoute
   '/match/$matchId': typeof MatchMatchIdRoute
   '/news/$storyId': typeof NewsStoryIdRoute
   '/players/$playerId': typeof PlayersPlayerIdRoute
@@ -97,6 +106,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/privacy'
     | '/series'
+    | '/stats'
     | '/match/$matchId'
     | '/news/$storyId'
     | '/players/$playerId'
@@ -107,6 +117,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/privacy'
     | '/series'
+    | '/stats'
     | '/match/$matchId'
     | '/news/$storyId'
     | '/players/$playerId'
@@ -117,6 +128,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/privacy'
     | '/series'
+    | '/stats'
     | '/match/$matchId'
     | '/news/$storyId'
     | '/players/$playerId'
@@ -128,6 +140,7 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   PrivacyRoute: typeof PrivacyRoute
   SeriesRoute: typeof SeriesRoute
+  StatsRoute: typeof StatsRoute
   MatchMatchIdRoute: typeof MatchMatchIdRoute
   NewsStoryIdRoute: typeof NewsStoryIdRoute
   PlayersPlayerIdRoute: typeof PlayersPlayerIdRoute
@@ -162,6 +175,13 @@ declare module '@tanstack/react-router' {
       path: '/series'
       fullPath: '/series'
       preLoaderRoute: typeof SeriesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/stats': {
+      id: '/stats'
+      path: '/stats'
+      fullPath: '/stats'
+      preLoaderRoute: typeof StatsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/match/$matchId': {
@@ -200,6 +220,7 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   PrivacyRoute: PrivacyRoute,
   SeriesRoute: SeriesRoute,
+  StatsRoute: StatsRoute,
   MatchMatchIdRoute: MatchMatchIdRoute,
   NewsStoryIdRoute: NewsStoryIdRoute,
   PlayersPlayerIdRoute: PlayersPlayerIdRoute,
