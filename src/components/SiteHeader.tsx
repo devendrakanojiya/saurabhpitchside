@@ -18,7 +18,7 @@ export function SiteHeader() {
         <div className="flex items-center gap-3">
           <Link to="/" className="group flex items-center gap-2.5">
             <img
-              src="public\saurabh.jpg"
+              src="/saurabh.jpg"
               alt="Saurabhcricketx Logo"
               className="h-9 w-9 rounded-xl object-cover shadow-md shadow-primary/20 transition-transform group-hover:scale-105"
             />
