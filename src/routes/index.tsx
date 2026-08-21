@@ -27,13 +27,13 @@ export const Route = createFileRoute("/")({
   },
   head: () => ({
     meta: [
-      { title: "Saurabhcricketx — Live Cricket Scores, News & Player Stats" },
+      { title: "Saurabhcricketx — Home | Live Cricket Scores & News" },
       {
         name: "description",
         content:
-          "Live cricket scores updated every 30 seconds, plus the latest cricket news, match analysis and player profiles across T20, ODI and Test cricket.",
+          "Your cricket home: live scores updated every 30 seconds, breaking news, match analysis and player stats across T20, ODI and Test cricket.",
       },
-      { property: "og:title", content: "Saurabhcricketx — Live Cricket Scores & News" },
+      { property: "og:title", content: "Saurabhcricketx — Home | Live Cricket Scores & News" },
       {
         property: "og:description",
         content: "Live scores, breaking cricket news and player stats, all in one place.",
@@ -89,13 +89,14 @@ function Index() {
   const { data: live } = useSuspenseQuery(liveQuery);
   const { data: news } = useSuspenseQuery(newsQuery);
 
-  // Limit live matches array to 10 items
   const displayedMatches = live.slice(0, 8);
+  const [lead, ...rest] = news;
 
   return (
     <div className="min-h-screen bg-background">
       <SiteHeader />
       <main className="mx-auto max-w-5xl px-4 py-8">
+        {/* Live scores */}
         <div className="flex flex-wrap items-end justify-between gap-2">
           <div>
             <h1 className="text-2xl font-extrabold tracking-tight text-foreground">
@@ -122,38 +123,61 @@ function Index() {
           </p>
         )}
 
+        {/* News feed */}
         <section className="mt-12">
           <div className="flex items-end justify-between gap-2">
-            <h2 className="text-lg font-bold tracking-tight text-foreground">Latest news</h2>
-            <Link to="/news" className="text-xs font-semibold text-primary hover:underline">
-              All stories →
+            <h2 className="text-lg font-bold tracking-tight text-foreground">Latest cricket news</h2>
+          </div>
+          <p className="mt-1 text-sm text-muted-foreground">Fresh updates from the global cricket wire.</p>
+
+          {lead && (
+            <Link
+              to="/news/$storyId"
+              params={{ storyId: lead.id }}
+              className="group mt-6 grid overflow-hidden rounded-xl border border-border bg-card transition-colors hover:border-ring sm:grid-cols-2"
+            >
+              {lead.image && (
+                <img src={lead.image} alt={lead.title} className="h-56 w-full object-cover sm:h-full" />
+              )}
+              <div className="p-5">
+                <span className="text-[10px] font-bold uppercase tracking-wide text-primary">Top story</span>
+                <h3 className="mt-2 text-xl font-bold leading-tight text-foreground group-hover:text-primary">
+                  {lead.title}
+                </h3>
+                <p className="mt-2 text-sm text-muted-foreground">{lead.summary}</p>
+                <p className="mt-3 text-xs text-muted-foreground/70">{lead.publishedAt}</p>
+              </div>
             </Link>
-          </div>
-          <div className="mt-4 grid gap-4 sm:grid-cols-3">
-            {news.slice(0, 6).map((n) => (
-              <Link
-                key={n.id}
-                to="/news/$storyId"
-                params={{ storyId: n.id }}
-                className="group overflow-hidden rounded-xl border border-border bg-card transition-colors hover:border-ring"
-              >
-                {n.image && (
-                  <img
-                    src={n.image}
-                    alt={n.title}
-                    loading="lazy"
-                    className="h-32 w-full object-cover"
-                  />
-                )}
-                <div className="p-3">
-                  <h3 className="text-sm font-semibold leading-snug text-foreground group-hover:text-primary">
-                    {n.title}
-                  </h3>
-                  <p className="mt-1 line-clamp-2 text-xs text-muted-foreground">{n.summary}</p>
-                </div>
-              </Link>
-            ))}
-          </div>
+          )}
+
+          {rest.length > 0 ? (
+            <ul className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {rest.map((n) => (
+                <li key={n.id}>
+                  <Link
+                    to="/news/$storyId"
+                    params={{ storyId: n.id }}
+                    className="group flex h-full flex-col overflow-hidden rounded-xl border border-border bg-card transition-colors hover:border-ring"
+                  >
+                    {n.image && (
+                      <img src={n.image} alt={n.title} loading="lazy" className="h-36 w-full object-cover" />
+                    )}
+                    <div className="flex flex-1 flex-col p-4">
+                      <h3 className="text-sm font-semibold leading-snug text-foreground group-hover:text-primary">
+                        {n.title}
+                      </h3>
+                      <p className="mt-1.5 line-clamp-3 text-xs text-muted-foreground">{n.summary}</p>
+                      <p className="mt-auto pt-3 text-[11px] text-muted-foreground/70">{n.publishedAt}</p>
+                    </div>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p className="mt-6 rounded-xl border border-border bg-card p-6 text-center text-sm text-muted-foreground">
+              No news stories available right now.
+            </p>
+          )}
         </section>
       </main>
       <Footer />

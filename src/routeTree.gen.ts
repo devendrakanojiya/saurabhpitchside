@@ -14,7 +14,6 @@ import { Route as AboutRouteImport } from './routes/about'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as SeriesRouteImport } from './routes/series'
 import { Route as MatchMatchIdRouteImport } from './routes/match.$matchId'
-import { Route as NewsIndexRouteImport } from './routes/news.index'
 import { Route as NewsStoryIdRouteImport } from './routes/news.$storyId'
 import { Route as PlayersIndexRouteImport } from './routes/players.index'
 import { Route as PlayersPlayerIdRouteImport } from './routes/players.$playerId'
@@ -44,11 +43,6 @@ const MatchMatchIdRoute = MatchMatchIdRouteImport.update({
   path: '/match/$matchId',
   getParentRoute: () => rootRouteImport,
 } as any)
-const NewsIndexRoute = NewsIndexRouteImport.update({
-  id: '/news/',
-  path: '/news/',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const NewsStoryIdRoute = NewsStoryIdRouteImport.update({
   id: '/news/$storyId',
   path: '/news/$storyId',
@@ -73,7 +67,6 @@ export interface FileRoutesByFullPath {
   '/match/$matchId': typeof MatchMatchIdRoute
   '/news/$storyId': typeof NewsStoryIdRoute
   '/players/$playerId': typeof PlayersPlayerIdRoute
-  '/news/': typeof NewsIndexRoute
   '/players/': typeof PlayersIndexRoute
 }
 export interface FileRoutesByTo {
@@ -84,7 +77,6 @@ export interface FileRoutesByTo {
   '/match/$matchId': typeof MatchMatchIdRoute
   '/news/$storyId': typeof NewsStoryIdRoute
   '/players/$playerId': typeof PlayersPlayerIdRoute
-  '/news': typeof NewsIndexRoute
   '/players': typeof PlayersIndexRoute
 }
 export interface FileRoutesById {
@@ -96,7 +88,6 @@ export interface FileRoutesById {
   '/match/$matchId': typeof MatchMatchIdRoute
   '/news/$storyId': typeof NewsStoryIdRoute
   '/players/$playerId': typeof PlayersPlayerIdRoute
-  '/news/': typeof NewsIndexRoute
   '/players/': typeof PlayersIndexRoute
 }
 export interface FileRouteTypes {
@@ -109,7 +100,6 @@ export interface FileRouteTypes {
     | '/match/$matchId'
     | '/news/$storyId'
     | '/players/$playerId'
-    | '/news/'
     | '/players/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -120,7 +110,6 @@ export interface FileRouteTypes {
     | '/match/$matchId'
     | '/news/$storyId'
     | '/players/$playerId'
-    | '/news'
     | '/players'
   id:
     | '__root__'
@@ -131,7 +120,6 @@ export interface FileRouteTypes {
     | '/match/$matchId'
     | '/news/$storyId'
     | '/players/$playerId'
-    | '/news/'
     | '/players/'
   fileRoutesById: FileRoutesById
 }
@@ -143,7 +131,6 @@ export interface RootRouteChildren {
   MatchMatchIdRoute: typeof MatchMatchIdRoute
   NewsStoryIdRoute: typeof NewsStoryIdRoute
   PlayersPlayerIdRoute: typeof PlayersPlayerIdRoute
-  NewsIndexRoute: typeof NewsIndexRoute
   PlayersIndexRoute: typeof PlayersIndexRoute
 }
 
@@ -184,13 +171,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MatchMatchIdRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/news/': {
-      id: '/news/'
-      path: '/news'
-      fullPath: '/news/'
-      preLoaderRoute: typeof NewsIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/news/$storyId': {
       id: '/news/$storyId'
       path: '/news/$storyId'
@@ -223,7 +203,6 @@ const rootRouteChildren: RootRouteChildren = {
   MatchMatchIdRoute: MatchMatchIdRoute,
   NewsStoryIdRoute: NewsStoryIdRoute,
   PlayersPlayerIdRoute: PlayersPlayerIdRoute,
-  NewsIndexRoute: NewsIndexRoute,
   PlayersIndexRoute: PlayersIndexRoute,
 }
 export const routeTree = rootRouteImport
