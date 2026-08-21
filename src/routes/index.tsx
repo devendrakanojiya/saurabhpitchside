@@ -27,13 +27,13 @@ export const Route = createFileRoute("/")({
   },
   head: () => ({
     meta: [
-      { title: "Pitchside — Live Cricket Scores, News & Player Stats" },
+      { title: "Saurabhcricketx — Live Cricket Scores, News & Player Stats" },
       {
         name: "description",
         content:
           "Live cricket scores updated every 30 seconds, plus the latest cricket news, match analysis and player profiles across T20, ODI and Test cricket.",
       },
-      { property: "og:title", content: "Pitchside — Live Cricket Scores & News" },
+      { property: "og:title", content: "Saurabhcricketx — Live Cricket Scores & News" },
       {
         property: "og:description",
         content: "Live scores, breaking cricket news and player stats, all in one place.",
@@ -89,6 +89,9 @@ function Index() {
   const { data: live } = useSuspenseQuery(liveQuery);
   const { data: news } = useSuspenseQuery(newsQuery);
 
+  // Limit live matches array to 10 items
+  const displayedMatches = live.slice(0, 8);
+
   return (
     <div className="min-h-screen bg-background">
       <SiteHeader />
@@ -99,7 +102,7 @@ function Index() {
               Live Cricket Scores
             </h1>
             <p className="mt-1 text-sm text-muted-foreground">
-              {live.length} match{live.length === 1 ? "" : "es"} in play · refreshing every 30s
+              {displayedMatches.length} match{displayedMatches.length === 1 ? "" : "es"} in play · refreshing every 30s
             </p>
           </div>
           <Link to="/series" className="text-xs font-semibold text-primary hover:underline">
@@ -107,9 +110,9 @@ function Index() {
           </Link>
         </div>
 
-        {live.length > 0 ? (
+        {displayedMatches.length > 0 ? (
           <div className="mt-5 grid gap-4 sm:grid-cols-2">
-            {live.map((m) => (
+            {displayedMatches.map((m) => (
               <LiveCard key={m.id} match={m} />
             ))}
           </div>
