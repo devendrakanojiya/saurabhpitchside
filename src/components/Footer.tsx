@@ -2,11 +2,11 @@ import { Link } from "@tanstack/react-router";
 import { Instagram, Send } from "lucide-react";
 
 const footerLinks = [
+  { to: "/", label: "Home" },
+  { to: "/series", label: "Series" },
+  { to: "/players", label: "Players" },
   { to: "/about", label: "About" },
   { to: "/privacy", label: "Privacy" },
-  { to: "/series", label: "Series" },
-  { to: "/news", label: "News" },
-  { to: "/players", label: "Players" },
 ] as const;
 
 export function Footer() {
@@ -19,7 +19,7 @@ export function Footer() {
           <div className="flex flex-col items-center gap-3 text-center md:items-start md:text-left">
             <div className="flex items-center gap-2">
               <img
-                src="public\saurabh.jpg"
+                src="/saurabh.jpg"
                 alt="Saurabhcricketx Logo"
                 className="h-9 w-9 rounded-xl object-cover shadow-md shadow-primary/20 transition-transform group-hover:scale-105"
               />

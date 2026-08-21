@@ -40,8 +40,8 @@ export const Route = createFileRoute("/news/$storyId")({
   notFoundComponent: () => (
     <div className="p-10 text-center">
       <p className="text-sm text-muted-foreground">That story is no longer in the feed.</p>
-      <Link to="/news" className="mt-3 inline-block text-sm font-semibold text-primary">
-        Back to news
+      <Link to="/" className="mt-3 inline-block text-sm font-semibold text-primary">
+        Back to home
       </Link>
     </div>
   ),
@@ -54,8 +54,8 @@ function StoryPage() {
     <div className="min-h-screen bg-background">
       <SiteHeader />
       <main className="mx-auto max-w-3xl px-4 py-8">
-        <Link to="/news" className="text-xs font-medium text-muted-foreground hover:text-foreground">
-          ← News
+        <Link to="/" className="text-xs font-medium text-muted-foreground hover:text-foreground">
+          ← Home
         </Link>
 
         <article className="mt-4">

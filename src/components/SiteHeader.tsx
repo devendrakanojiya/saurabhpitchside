@@ -2,9 +2,8 @@ import { Link } from "@tanstack/react-router";
 import { Instagram, Send } from "lucide-react";
 
 const links = [
-  { to: "/", label: "Scores" },
+  { to: "/", label: "Home" },
   { to: "/series", label: "Series" },
-  { to: "/news", label: "News" },
   { to: "/players", label: "Players" },
   { to: "/about", label: "About" },
 ] as const;
